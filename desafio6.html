@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Formulario de Registro</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+
+        .contenedor{
+            width: 350px;
+            background-color: white;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1{
+            text-align: center;
+            color: #003366;
+        }
+
+        label{
+            font-weight: bold;
+        }
+
+        input, textarea, select{
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        .sexo{
+            width: auto;
+        }
+
+        button{
+            width: 100%;
+            padding: 12px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover{
+            background-color: #0055aa;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>Formulario de Registro</h1>
+
+        <form>
+
+            <label>Nombre y Apellido</label>
+            <input type="text" placeholder="Ingrese su nombre">
+
+            <label>Correo Electrónico</label>
+            <input type="email" placeholder="Ingrese su correo">
+
+            <label>Contraseña</label>
+            <input type="password" placeholder="Ingrese su contraseña">
+
+            <label>Sexo</label><br>
+
+            <input class="sexo" type="radio" name="sexo"> Masculino
+            <input class="sexo" type="radio" name="sexo"> Femenino
+
+            <br><br>
+
+            <label>Comentarios</label>
+
+            <textarea rows="5" placeholder="Escriba un comentario"></textarea>
+
+            <button type="submit">Enviar</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
