@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel Gimenez — Portafolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink: #0e0e12;
+            --cream: #f5f2ed;
+            --accent: #e63946;
+            --accent2: #457b9d;
+            --card-bg: #ffffff;
+            --muted: #6b6b78;
+            --border: #e2ddd8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 48px;
+            background: rgba(245,242,237,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 100px 48px 60px;
+            gap: 40px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-text { position: relative; z-index: 1; }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 28px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        h1.hero-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
+            color: var(--ink);
+            animation: fadeUp 0.6s 0.1s ease both;
+        }
+
+        h1.hero-name span { color: var(--accent); }
+
+        .hero-sub {
+            margin-top: 20px;
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 420px;
+            line-height: 1.7;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+
+        .hero-cta {
+            margin-top: 36px;
+            display: flex;
+            gap: 16px;
+            animation: fadeUp 0.6s 0.3s ease both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--ink);
+            color: white;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--ink);
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+
+        .hero-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .profile-avatar {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .profile-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; }
+        .profile-role { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+        .profile-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            color: var(--ink);
+        }
+        .badge.accent { background: var(--accent); color: white; border-color: var(--accent); }
+        .badge.blue { background: var(--accent2); color: white; border-color: var(--accent2); }
+
+        .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+
+        .stat-box { background: var(--cream); border-radius: 12px; padding: 14px; text-align: center; }
+        .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+        .section { padding: 90px 48px; }
+
+        .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+        .section-num { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
+        .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; }
+        .section-line { flex: 1; height: 1px; background: var(--border); }
+
+        .trabajos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+        .trabajo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .trabajo-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.1); }
+
+        .card-preview { height: 220px; overflow: hidden; position: relative; background: #f0ece6; }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5));
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+        }
+        .trabajo-card:hover .card-overlay { opacity: 1; }
+
+        .overlay-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            background: var(--accent);
+            padding: 8px 16px;
+            border-radius: 100px;
+        }
+
+        .card-body { padding: 20px 24px 24px; }
+        .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--cream);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+        .tag.html { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+        .tag.css { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+
+        .card-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+        .card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+        /* ─── DESAFIOS ─── */
+        .desafios-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+        .desafio-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.25s, box-shadow 0.25s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .desafio-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+        }
+        .desafio-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+
+        .desafio-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--border); line-height: 1; margin-bottom: 12px; }
+        .desafio-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+        .desafio-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; }
+
+        .desafio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1.5px solid var(--accent);
+            padding: 6px 14px;
+            border-radius: 100px;
+            align-self: flex-start;
+            transition: all 0.2s;
+        }
+        .desafio-link:hover { background: var(--accent); color: white; }
+        .desafio-link.disabled { color: var(--muted); border-color: var(--border); pointer-events: none; }
+
+        /* ─── ABOUT ─── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+        .about-text p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+
+        .hobbies-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+        .hobby { font-size: 0.85rem; padding: 8px 16px; border-radius: 100px; background: var(--cream); border: 1px solid var(--border); transition: all 0.2s; }
+        .hobby:hover { border-color: var(--accent); color: var(--accent); }
+
+        .skills-list { display: flex; flex-direction: column; gap: 16px; }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem; font-weight: 500; }
+        .skill-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+        .skill-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+        /* ─── CONTACT ─── */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+
+        .contact-item { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .contact-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--cream); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .contact-label { font-size: 0.75rem; color: var(--muted); }
+        .contact-value { font-size: 0.9rem; font-weight: 500; }
+
+        .contact-cta { background: var(--ink); border-radius: 24px; padding: 40px; color: white; text-align: center; }
+        .contact-cta h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+        .contact-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+
+        .btn-white {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 28px; background: white; color: var(--ink);
+            border-radius: 100px; text-decoration: none; font-size: 0.9rem;
+            font-weight: 600; transition: background 0.2s, transform 0.2s;
+        }
+        .btn-white:hover { background: var(--cream); transform: scale(1.04); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+            .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+            .hero-visual { display: none; }
+            .section { padding: 60px 24px; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a class="nav-logo" href="#">MG.</a>
+    <ul class="nav-links">
+        <li><a href="#trabajos">Trabajos</a></li>
+        <li><a href="#desafios">Desafíos</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <span class="hero-tag">Portafolio 2026</span>
+        <h1 class="hero-name">Miguel<br><span>Gimenez</span></h1>
+        <p class="hero-sub">Estudiante de Analisisía en Informática apasionado por la tecnología y el desarrollo web. Aquí están mis trabajos del Taller de Operaciones.</p>
+        <div class="hero-cta">
+            <a href="#trabajos" class="btn-primary">Ver trabajos ↓</a>
+            <a href="#contacto" class="btn-outline">Contacto</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card">
+            <div class="profile-avatar">MG</div>
+            <div class="profile-name">Miguel Gimenez</div>
+            <div class="profile-role">Analisisía en Informática — 1er Semestre</div>
+            <div class="profile-badges">
+                <span class="badge accent">HTML</span>
+                <span class="badge blue">CSS</span>
+                <span class="badge">Diseño Web</span>
+                <span class="badge">Paraguay 🇵🇾</span>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Actividades</div></div>
+                <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Desafíos</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ACTIVIDADES -->
+<section class="section" id="trabajos" style="background: var(--card-bg);">
+    <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Actividades</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="trabajos-grid">
+
+        <!-- Actividad 1 -->
+        <div class="trabajo-card">
+            <div class="card-preview" style="background: linear-gradient(135deg,#667eea,#764ba2); display:flex; align-items:center; justify-content:center; font-size:4rem;">👨‍💻</div>
+            <div class="card-overlay"><a href="Actividad IV Ejercicio 1.html" class="overlay-link" target="_blank">Ver proyecto →</a></div>
+            <div class="card-body">
+                <div class="card-tags"><span class="tag html">HTML</span><span class="tag css">CSS</span></div>
+                <div class="card-title">Perfil Personal</div>
+                <div class="card-desc">Página de presentación personal con info académica, hobbies y diseño con gradiente morado. Incluye hover effects y diseño responsivo.</div>
+            </div>
+        </div>
+
+        <!-- Actividad 2 -->
+        <div class="trabajo-card">
+            <div class="card-preview" style="background: #1a1a1a; display:flex; align-items:center; justify-content:center;">
+                <img src="https://1000marcas.net/wp-content/uploads/2020/03/Logo-NVIDIA.png" alt="NVIDIA" style="width:180px; max-width:90%;">
+            </div>
+            <div class="card-overlay"><a href="Actividad IV Ejercicio 2.html" class="overlay-link" target="_blank">Ver proyecto →</a></div>
+            <div class="card-body">
+                <div class="card-tags"><span class="tag html">HTML</span><span class="tag css">CSS</span></div>
+                <div class="card-title">Página Empresa — NVIDIA</div>
+                <div class="card-desc">Ficha informativa de NVIDIA con logo, descripción, productos principales y estilo corporativo con verde característico de la marca.</div>
+            </div>
+        </div>
+
+        <!-- Actividad 3 -->
+        <div class="trabajo-card">
+            <div class="card-preview" style="background: #e8f5e9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:16px;">
+                <div style="font-weight:bold; color:#4CAF50; font-size:0.9rem;">Comparativa de Sistemas Operativos</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; width:100%;">
+                    <div style="background:#4CAF50; color:white; text-align:center; padding:6px; border-radius:6px; font-size:0.7rem; font-weight:bold;">Windows</div>
+                    <div style="background:#4CAF50; color:white; text-align:center; padding:6px; border-radius:6px; font-size:0.7rem; font-weight:bold;">Linux</div>
+                    <div style="background:#4CAF50; color:white; text-align:center; padding:6px; border-radius:6px; font-size:0.7rem; font-weight:bold;">MacOS</div>
+                    <div style="background:white; text-align:center; padding:4px; border-radius:4px; font-size:0.65rem; border:1px solid #ddd;">Amigable</div>
+                    <div style="background:white; text-align:center; padding:4px; border-radius:4px; font-size:0.65rem; border:1px solid #ddd;">Gratuito</div>
+                    <div style="background:white; text-align:center; padding:4px; border-radius:4px; font-size:0.65rem; border:1px solid #ddd;">Elegante</div>
+                </div>
+            </div>
+            <div class="card-overlay"><a href="Actividad IV Ejercicio 3.html" class="overlay-link" target="_blank">Ver proyecto →</a></div>
+            <div class="card-body">
+                <div class="card-tags"><span class="tag html">HTML</span><span class="tag css">CSS</span></div>
+                <div class="card-title">Tabla Comparativa — Sistemas Operativos</div>
+                <div class="card-desc">Tabla comparativa de Windows, Linux y MacOS con ventajas, desventajas, costos en PYG/USD y usos recomendados.</div>
+            </div>
+        </div>
+
+        <!-- Actividad 4 -->
+        <div class="trabajo-card">
+            <div class="card-preview" style="background: linear-gradient(90deg,#00e5ff,#ff9800); display:flex; align-items:center; justify-content:center; font-size:3rem; flex-direction:column; gap:4px;">
+                🛍️
+                <span style="color:white; font-weight:800; font-size:1.1rem; letter-spacing:1px;">MIGUE_STORE</span>
+                <span style="color:rgba(255,255,255,0.8); font-size:0.75rem;">Moda moderna</span>
+            </div>
+            <div class="card-overlay"><a href="Actividad IV Ejercicio 4.html" class="overlay-link" target="_blank">Ver proyecto →</a></div>
+            <div class="card-body">
+                <div class="card-tags"><span class="tag html">HTML</span><span class="tag css">CSS</span></div>
+                <div class="card-title">Sitio de Tienda — MIGUE_STORE</div>
+                <div class="card-desc">Página de tienda de ropa con header colorido, secciones de descripción, servicios, horarios y contacto. Diseño limpio con footer oscuro.</div>
+            </div>
+        </div>
+
+        <!-- Actividad 5 -->
+        <div class="trabajo-card">
+            <div class="card-preview" style="background: #e3f2fd; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px;">
+                <div style="font-size:2.5rem;">🌐</div>
+                <div style="text-align:center; padding: 0 20px;">
+                    <div style="font-weight:bold; color:#0077cc; font-size:0.9rem;">Hosting & Dominios</div>
+                    <div style="font-size:0.72rem; color:#555; margin-top:4px;">Investigación completa</div>
+                </div>
+            </div>
+            <div class="card-overlay"><a href="Actividad IV Ejercicio 5.html" class="overlay-link" target="_blank">Ver proyecto →</a></div>
+            <div class="card-body">
+                <div class="card-tags"><span class="tag html">HTML</span><span class="tag css">CSS</span></div>
+                <div class="card-title">Investigación — Hosting y Dominios</div>
+                <div class="card-desc">Página informativa sobre qué son los dominios y el hosting, precios aproximados y empresas proveedoras como Hostinger, GoDaddy y Namecheap.</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- DESAFÍOS -->
+<section class="section" id="desafios">
+    <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Desafíos HTML</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="desafios-grid">
+
+        <!-- Desafío 1 -->
+        <div class="desafio-card">
+            <div class="desafio-num">01</div>
+            <div class="desafio-title">Perfil Profesional</div>
+            <div class="desafio-desc">Curriculum Miguel Gimenez.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio1.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 2 -->
+        <div class="desafio-card">
+            <div class="desafio-num">02</div>
+            <div class="desafio-title">Portal de Noticias — BBC Tecnología</div>
+            <div class="desafio-desc">Portal de noticias tech con header oscuro, tarjetas de noticias con imágenes de Unsplash y artículos sobre IA en 2026, desarrollo web y laptops con IA.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio2.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 3 -->
+        <div class="desafio-card">
+            <div class="desafio-num">03</div>
+            <div class="desafio-title">Restaurante — Sabores Paraguayos</div>
+            <div class="desafio-desc">Sitio de cafetería típica paraguaya con menú de chipa, sopa y empanadas, galería de fotos locales, horarios y contacto. Header rojo vibrante.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio3.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 4 -->
+        <div class="desafio-card">
+            <div class="desafio-num">04</div>
+            <div class="desafio-title">Fan Page — Naruto Shippuden</div>
+            <div class="desafio-desc">Página de anime favorito con galería de personajes (Naruto, Sasuke, Sakura), tabla de habilidades, navegación interna y opinión personal.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio4.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 5 -->
+        <div class="desafio-card">
+            <div class="desafio-num">05</div>
+            <div class="desafio-title">Sitio Institucional — Universidad Nacional</div>
+            <div class="desafio-desc">Página universitaria con secciones de misión, visión, servicios (biblioteca, labs, campus virtual) y galería de imágenes. Estilo azul institucional.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio5.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 6 -->
+        <div class="desafio-card">
+            <div class="desafio-num">06</div>
+            <div class="desafio-title">Formulario de Registro</div>
+            <div class="desafio-desc">Formulario completo con campos de nombre, email, contraseña, sexo (radio buttons) y comentarios. Diseño limpio con validación básica HTML5.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio6.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+        <!-- Desafío 7 -->
+        <div class="desafio-card">
+            <div class="desafio-num">07</div>
+            <div class="desafio-title">Investigación — Mundo Web</div>
+            <div class="desafio-desc">Artículo sobre roles en desarrollo web: Frontend, Backend y Full Stack. Incluye tecnologías actuales y salarios del sector. Estilo editorial azul.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\desafio7.html" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+                <!-- Trabajo Latex -->
+        <div class="desafio-card">
+            <div class="desafio-num">III</div>
+            <div class="desafio-title">Investigación — Silicon Valley</div>
+            <div class="desafio-desc">Artículo sobre La pelicula pirada de silicon Valley. Estilo editorial azul.</div>
+            <a href="C:\Users\migue\OneDrive\Documents\HTML_TRABAJOS\ACTIVIDAD_III.pdf" class="desafio-link" target="_blank">Ver proyecto →</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="section" id="sobre-mi" style="background: var(--card-bg);">
+    <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Sobre Mí</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+        <div class="about-text">
+            <p>¡Hola! Soy Miguel Gimenez, un estudiante apasionado por la tecnología y el aprendizaje continuo. Actualmente me encuentro en el primer semestre de Analisis en Informática.</p>
+            <p>Me encanta desarrollar nuevas habilidades, trabajar en proyectos creativos y explorar las posibilidades infinitas que ofrece la programación. Estos trabajos son el resultado de mi primer acercamiento al desarrollo web.</p>
+            <h3 style="font-family:'Syne',sans-serif; font-size:1rem; margin-bottom:12px; margin-top:4px;">🎮 Hobbies</h3>
+            <div class="hobbies-list">
+                <span class="hobby">🎵 Escuchar música</span>
+                <span class="hobby">🎮 Videojuegos</span>
+                <span class="hobby">📚 Leer libros</span>
+                <span class="hobby">⚽ Fútbol</span>
+            </div>
+        </div>
+        <div>
+            <h3 style="font-family:'Syne',sans-serif; font-size:1rem; margin-bottom:20px;">🛠️ Habilidades técnicas</h3>
+            <div class="skills-list">
+                <div class="skill-item">
+                    <div class="skill-header"><span>HTML</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>CSS</span><span>65%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Diseño Responsivo</span><span>55%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>JavaScript</span><span>20%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" style="width:20%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto">
+    <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Contacto</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div><div class="contact-label">WhatsApp</div><div class="contact-value">0986 163 972</div></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📸</div>
+                <div><div class="contact-label">Instagram</div><div class="contact-value">@MIGUE_STORE_</div></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div><div class="contact-label">Email</div><div class="contact-value">contacto@migue-store.com</div></div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div><div class="contact-label">Ubicación</div><div class="contact-value">Asunción, Paraguay 🇵🇾</div></div>
+            </div>
+        </div>
+        <div class="contact-cta">
+            <h3>¿Hablamos?</h3>
+            <p>Estoy disponible para proyectos, colaboraciones o simplemente para intercambiar ideas sobre tecnología.</p>
+            <a href="mailto:contacto@migue-store.com" class="btn-white">Enviar mensaje →</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span>© 2026 Miguel Gimenez — Todos los derechos reservados</span>
+    <span style="font-family:'Syne',sans-serif; font-weight:700;">MG.</span>
+</footer>
+
+</body>
+</html>
